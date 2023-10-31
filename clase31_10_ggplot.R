@@ -82,9 +82,16 @@ setwd("/home/clinux01/Escritorio/Cande/Practica_4/")
 library(ggplot2)
 library(lubridate)
 library(metR)
-
-
-
+library(ncdf4)
+archivo<-"/home/clinux01/Escritorio/Cande/Practica_4/air.mon.mean.nc"
+nc<-nc_open(archivo)
+temp_aire<- ncvar_get(nc, "air")
+latitudes<- ncvar_get(nc, "lat")
+longitudes<- ncvar_get(nc, "lon")
+tiempos<- ncvar_get(nc, "time")
+tiempos_legibles<- as.Date(tiempos/24,origin="1800-01-01")
+head(tiempos_legibles) #miro los primeros tiempos
+tail (tiempos_legibles) #miro los ultimos tiempos
 
 
 
