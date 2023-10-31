@@ -37,7 +37,51 @@ scale_color_manual(values = c("darkorange", "purple", "cyan4")) +
 
 #octava capa: TEMA. estilo del grafico. Aesthetic
 
+#-------------------------------------------------------------------------------
+#Practica series temporales 
+rm(list=ls())
+setwd("/home/clinux01/Escritorio/Cande/Practica_4/")
 
+# Cargo las librerias que voy a necesitar
+library(ggplot2)
+library(lubridate)
+library(metR)
+#Quedemosnos unicamente con el punto mas cercano a la estacion OCBA (-34,-58)
+archivo <- "/home/clinux01/Escritorio/Cande/Practica_4/air.mon.mean.nc" #donde esta el archivo
+GlanceNetCDF(archivo)
+datos_OCBA<- ReadNetCDF(archivo, vars = "air", subset = list(lat =-34, lon = 360-58))
+# Me quedo con el periodo 1990-2010
+datos_OCBA_periodo<- datos_OCBA[which(year(datos_OCBA$time) %in% 1990:2010),]
+head(datos_OCBA_periodo)# Miro los datos
+
+#Primera capa
+grafico <- ggplot(data = datos_OCBA_periodo, mapping = aes(x= time, y= air))
+grafico
+
+# Ahora agrego la geometria que quiero, en este caso como es una serie temporal puedo
+#usar lineas. Uso geom_line
+grafico<- grafico + geom_line()
+grafico
+grafico <- grafico + geom_line(color= "blue") #quiero linea en azul
+grafico
+
+#agrego titulos, subtitulos, ejes
+grafico <- grafico + labs(title = "Temperatura OCBA", subtitle = "Periodo 1990-2010",
+                          x = "mes",
+                          y = "Temperatura(°C)" )
+grafico
+
+#-------------------------------------------------------------------------------
+#EJERCICIO
+rm(list=ls())
+setwd("/home/clinux01/Escritorio/Cande/Practica_4/")
+
+#Calcular el promedio de temperatura anual (promedio de los 12 meses del
+#año) y graficar la serie resultante con lineas y puntos. Además agregar la
+#linea de tendencia lineal.
+library(ggplot2)
+library(lubridate)
+library(metR)
 
 
 
