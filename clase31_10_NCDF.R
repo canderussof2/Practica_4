@@ -1,6 +1,7 @@
 #Practica 31/10. NCDF
 rm(list=ls())
-setwd("/home/clinux01/Escritorio/Cande/Practica_4/")
+#setwd("/home/clinux01/Escritorio/Cande/Practica_4/")
+setwd("/Users/cande/Desktop/Labo/Practica_4/")
 library(ncdf4) #cargo libreria ncdf4
 archivo <- "/home/clinux01/Escritorio/Cande/Practica_4/air.mon.mean.nc" #donde esta el archivo
 nc<- nc_open(archivo) #abro el archivo netCDF
@@ -35,6 +36,7 @@ dim(datos_temp_marzo) #tengo las 144 lon, 73 lat y 74 tiempos que corresponden a
 #Cargamos el paquete metR y udunits2
 library(udunits2)
 library(metR)
+archivo <-"air.mon.mean.nc"
 GlanceNetCDF(archivo) #Vemos las dimensiones del archivo con la función GlanceNetCDF. Este te devuelve en forma de df
 
 datos <- ReadNetCDF(archivo, vars = "air") #abro los datos. El equivalente a nvar_get
@@ -50,13 +52,13 @@ datos_region<- ReadNetCDF(archivo, vars = "air", subset = list(lat = c(-65,-20),
 #con GlanceNetNCDF
 library(udunits2)
 library(metR)
-u850<-"/home/clinux01/Escritorio/Cande/Practica_4/datos_u850.nc"
+u850<-"datos_u850.nc"
 GlanceNetCDF(u850) #veo las dimensiones
 datos_cuenca_plata<- ReadNetCDF(u850, vars = "ua850", subset = list(lat = c(-38.75,-23.75),lon = c(-64.25, -51.25))) #oeste y Sur es negat
 
 #quiero quedar con el promedio de cada año
 head(datos_cuenca_plata)
-anios<- year(datos_cuenca_plata$time)#me da los años de los datos
+anios<- years(datos_cuenca_plata$time)#me da los años de los datos
 dato_todos_los_anios<-c()
 for(anio in 2005:2010){
   dato_por_anio<-mean(datos_cuenca_plata$ua850[which(year(datos_cuenca_plata$time)==anio)],rm.na=T)
