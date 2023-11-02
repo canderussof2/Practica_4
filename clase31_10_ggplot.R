@@ -79,8 +79,8 @@ grafico
 #EJERCICIO
 rm(list=ls())
 #setwd("/home/clinux01/Escritorio/Cande/Practica_4/")
-setwd("/Users/cande/Desktop/Labo/Practica_4/")
-
+#setwd("/Users/cande/Desktop/Labo/Practica_4/")
+setwd("/home/clinux01/Escritorio/Cande Labo Jueves/Practica_4/")
 #Calcular el promedio de temperatura anual (promedio de los 12 meses del
 #anio) y graficar la serie resultante con lineas y puntos. Ademas agregar la
 #linea de tendencia lineal.
@@ -94,6 +94,7 @@ datos <- ReadNetCDF(archivo, vars = "air")
 
 #Si quiero los datos de cada anio
 #anios <- years(datos$time)
+#chequear desp con el resuelto
 prom_anual<-c()
 for(anio in 1948:2021){
   dato_anio<-mean(datos$air[which(year(datos$time)==anio)],na.rm = T)
@@ -125,16 +126,6 @@ grafico <- grafico + labs(title = "Promedio de temperatura anual", subtitle = "P
 grafico
 
 
-
-#library(ncdf4)
-#nc<-nc_open(archivo)
-#temp_aire<- ncvar_get(nc, "air")
-#latitudes<- ncvar_get(nc, "lat")
-#longitudes<- ncvar_get(nc, "lon")
-#tiempos<- ncvar_get(nc, "time")
-#tiempos_legibles<- as.Date(tiempos/24,origin="1800-01-01")
-#head(tiempos_legibles) #miro los primeros tiempos
-#tail (tiempos_legibles) #miro los ultimos tiempos
 
 
 
